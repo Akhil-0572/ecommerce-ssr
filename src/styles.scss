@@ -1,1 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
+/* 1. Variables (Flipkart/Amazon Palette) */
+:root {
+  --primary-color: #2874f0; /* Flipkart Blue */
+  --secondary-color: #fb641b; /* Action Orange */
+  --bg-color: #f1f3f6;
+  --text-main: #212121;
+  --text-muted: #878787;
+  --border-color: #f0f0f0;
+  --white: #ffffff;
+  --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 16px 0 rgba(0,0,0,0.1);
+}
+
+/* 2. Reset & Typography */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif; /* Standard E-commerce Font */
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { text-decoration: none; color: inherit; }
+button { font-family: inherit; }
+
+/* 3. Global Layout Utilities */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 16px;
+}

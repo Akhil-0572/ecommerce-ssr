@@ -1,0 +1,33 @@
+<div class="cart-overlay" [class.open]="isOpen()" (click)="close()"></div>
+
+<div class="cart-panel" [class.open]="isOpen()">
+  <div class="header">
+    <h3>My Cart ({{ cartService.cartCount() }})</h3>
+    <button (click)="close()">✕</button>
+  </div>
+
+  <div class="items">
+    @for (item of cartService.cartItems(); track item.variantId) {
+      <div class="cart-item">
+        <div class="info">
+          <h4>{{ item.productTitle }}</h4>
+          <p>{{ item.variantName }}</p>
+          <p class="price">₹{{ item.price }} x {{ item.quantity }}</p>
+        </div>
+        <button class="remove" (click)="cartService.removeFromCart(item.variantId)">Remove</button>
+      </div>
+    }
+    @if (cartService.cartCount() === 0) {
+      <p class="empty-msg">Your cart is empty!</p>
+    }
+  </div>
+
+  <div class="footer">
+    <div class="total">
+      <span>Total:</span>
+      <span>₹{{ cartService.cartTotal() }}</span>
+    </div>
+    <a routerLink="/cart" (click)="close()" class="view-cart-btn">View Full Cart</a>
+    <a routerLink="/checkout" (click)="close()" class="checkout-btn">Checkout</a>
+  </div>
+</div>

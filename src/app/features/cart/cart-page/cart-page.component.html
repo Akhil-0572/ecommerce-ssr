@@ -1,0 +1,47 @@
+<div class="cart-container">
+  <div class="cart-items-section">
+    <h2>Shopping Cart ({{ cartService.cartCount() }})</h2>
+    
+    @if(cartService.cartCount() === 0) {
+      <div class="empty">
+        <p>Your cart is empty.</p>
+        <a routerLink="/" class="shop-btn">Shop Now</a>
+      </div>
+    }
+
+    @for (item of cartService.cartItems(); track item.variantId) {
+      <div class="item-card">
+        <div class="details">
+          <h3>{{ item.productTitle }}</h3>
+          <p class="variant">{{ item.variantName }}</p>
+          <p class="price">₹{{ item.price }}</p>
+        </div>
+        <div class="actions">
+          <div class="qty-control">
+            <button (click)="updateQty(item, -1)" [disabled]="item.quantity <= 1">-</button>
+            <span>{{ item.quantity }}</span>
+            <button (click)="updateQty(item, 1)">+</button>
+          </div>
+          <button class="remove-btn" (click)="cartService.removeFromCart(item.variantId)">REMOVE</button>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="price-details-section">
+    <h3>PRICE DETAILS</h3>
+    <div class="row">
+      <span>Price ({{ cartService.cartCount() }} items)</span>
+      <span>₹{{ cartService.cartTotal() }}</span>
+    </div>
+    <div class="row">
+      <span>Delivery Charges</span>
+      <span class="free">Free</span>
+    </div>
+    <div class="row total">
+      <span>Total Amount</span>
+      <span>₹{{ cartService.cartTotal() }}</span>
+    </div>
+    <a routerLink="/checkout" class="place-order-btn">PLACE ORDER</a>
+  </div>
+</div>

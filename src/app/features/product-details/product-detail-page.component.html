@@ -1,0 +1,43 @@
+@if (product(); as p) {
+  <div class="pdp-container">
+    <div class="image-col">
+      <img [src]="p.image" alt="">
+    </div>
+    
+    <div class="info-col">
+      <h1>{{ p.title }}</h1>
+      <p class="brand">{{ p.brand }}</p>
+      
+      <div class="price">
+        <h2>₹{{ price() }}</h2>
+      </div>
+
+      <div class="variants">
+        <p>Select Color/Size:</p>
+        <div class="chips">
+          @for (v of p.variants; track v.id) {
+            <button 
+              [class.active]="selectedVariant()?.id === v.id"
+              (click)="selectVariant(v)">
+              {{ v.name }}
+            </button>
+          }
+        </div>
+      </div>
+
+      <button 
+        class="add-btn" 
+        [disabled]="!isStockAvailable()"
+        (click)="addToCart()">
+        {{ isStockAvailable() ? 'ADD TO CART' : 'OUT OF STOCK' }}
+      </button>
+
+      <div class="features">
+        <ul>
+          <li>1 Year Warranty</li>
+          <li>7 Days Replacement</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+}

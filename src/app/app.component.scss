@@ -1,0 +1,18 @@
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: #2874f0; color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.header-content {
+  display: flex; justify-content: space-between; align-items: center; padding: 1rem;
+}
+
+.logo {
+  color: white; font-weight: bold; text-decoration: none; font-size: 1.2rem;
+}
+
+.cart-trigger {
+  cursor: pointer; display: flex; align-items: center; font-weight: 600; gap: 5px;
+  &:hover { opacity: 0.9; }
+}

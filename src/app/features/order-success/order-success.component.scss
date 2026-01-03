@@ -1,0 +1,54 @@
+.success-container {
+    text-align: center;
+    padding: 50px 20px;
+    background: white;
+    max-width: 600px;
+    margin: 40px auto;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.icon-circle {
+    width: 80px;
+    height: 80px;
+    background: #388e3c;
+    color: white;
+    border-radius: 50%;
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+h1 {
+    color: #212121;
+    margin-bottom: 10px;
+}
+
+.actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+button,
+.continue-btn {
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 2px;
+    cursor: pointer;
+    border: 1px solid #2874f0;
+}
+
+button {
+    background: white;
+    color: #2874f0;
+    font-weight: 500;
+}
+
+.continue-btn {
+    background: #2874f0;
+    color: white;
+    font-weight: 500;
+}

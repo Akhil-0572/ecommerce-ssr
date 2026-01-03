@@ -1,0 +1,36 @@
+<div class="checkout-container">
+  <div class="left-col">
+    <div class="section">
+      <h3 class="step-title">1. ORDER SUMMARY</h3>
+      <div class="summary-items">
+         @for (item of cartService.cartItems(); track item.variantId) {
+           <div class="mini-item">
+             <span>{{ item.productTitle }} ({{ item.quantity }})</span>
+             <span>₹{{ item.price * item.quantity }}</span>
+           </div>
+         }
+         <div class="mini-total">Total: ₹{{ cartService.cartTotal() }}</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3 class="step-title">2. PAYMENT OPTIONS</h3>
+      <form [formGroup]="paymentForm" (ngSubmit)="processPayment()">
+        <div class="payment-method">
+          <label><input type="radio" checked> Credit / Debit / ATM Card</label>
+        </div>
+        
+        <div class="card-form">
+          <input type="text" formControlName="cardNumber" placeholder="Enter Card Number" maxlength="16">
+          <div class="row">
+            <input type="text" formControlName="expiry" placeholder="MM/YY">
+            <input type="password" formControlName="cvv" placeholder="CVV" maxlength="3">
+          </div>
+          <button type="submit" [disabled]="paymentForm.invalid || isProcessing()" class="pay-btn">
+            {{ isProcessing() ? 'Processing...' : 'PAY ₹' + cartService.cartTotal() }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

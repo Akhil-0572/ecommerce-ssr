@@ -1,0 +1,86 @@
+<div class="plp-container">
+  <aside class="filters">
+    <h3>Filters</h3>
+    <form [formGroup]="filterForm">
+      <div class="form-group">
+        <label>Search</label>
+        <input type="text" formControlName="search" placeholder="Search brands, products...">
+      </div>
+      <div class="form-group">
+        <label>Sort By</label>
+        <select formControlName="sort">
+          <option value="newest">Newest</option>
+          <option value="price_asc">Price: Low to High</option>
+          <option value="price_desc">Price: High to Low</option>
+        </select>
+      </div>
+    </form>
+  </aside>
+
+  <main class="content-area">
+    <div class="grid">
+      @if (loading()) {
+        <div class="loading-state">
+          <div class="spinner"></div>
+          <p>Loading products...</p>
+        </div>
+      } @else if (products().length === 0) {
+        <div class="no-results">
+          <p>No products found matching your search.</p>
+        </div>
+      } @else {
+        @for (product of products(); track product.id) {
+          <a [routerLink]="['/product', product.id]" class="card">
+            
+            @if(product.discount) {
+              <div class="badge">{{ product.discount }}% OFF</div>
+            }
+
+            <div class="img-wrapper">
+              <img [src]="product.image" [alt]="product.title" loading="lazy">
+            </div>
+
+            <div class="card-details">
+              <h3>{{ product.title }}</h3>
+              <p class="brand">{{ product.brand }}</p>
+              
+              <div class="price-row">
+                <span class="price">
+                  ₹{{ product.variants[0].price * (1 - (product.discount || 0)/100) | number:'1.0-0' }}
+                </span>
+                
+                @if(product.discount) {
+                  <span class="original-price">₹{{ product.variants[0].price }}</span>
+                }
+              </div>
+            </div>
+          </a>
+        }
+      }
+    </div>
+
+    @if (!loading() && totalPages > 1) {
+      <div class="pagination">
+        <button 
+          [disabled]="currentPage() === 1" 
+          (click)="onPageChange(currentPage() - 1)">
+          Previous
+        </button>
+
+        @for (page of pagesArray; track page) {
+          <button 
+            [class.active]="currentPage() === page" 
+            (click)="onPageChange(page)">
+            {{ page }}
+          </button>
+        }
+
+        <button 
+          [disabled]="currentPage() === totalPages" 
+          (click)="onPageChange(currentPage() + 1)">
+          Next
+        </button>
+      </div>
+    }
+  </main>
+</div>

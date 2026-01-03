@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { RouterOutlet, RouterLink } from '@angular/router';
+import { CartService } from './core/services/cart.service';
+import { CartDrawerComponent } from './features/cart/cart-drawer/cart-drawer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink, CartDrawerComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'ng-ecommerce-ssr';
+  cartService = inject(CartService);
 }

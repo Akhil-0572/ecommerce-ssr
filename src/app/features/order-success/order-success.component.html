@@ -1,0 +1,10 @@
+<div class="success-container">
+  <div class="icon-circle">✓</div>
+  <h1>Order Placed Successfully!</h1>
+  <p>Thank you for your purchase. Your order ID is <strong>#OD{{ orderId }}</strong>.</p>
+  
+  <div class="actions">
+    <button (click)="printInvoice()">Download Invoice</button>
+    <a routerLink="/" class="continue-btn">Continue Shopping</a>
+  </div>
+</div>
