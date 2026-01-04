@@ -1,24 +1,45 @@
 @if (product(); as p) {
   <div class="pdp-container">
-    <div class="image-col">
-      <img [src]="p.image" alt="">
+    
+    <div class="gallery-wrapper">
+      <div class="thumbnails-list">
+        @for(img of p.images; track img) {
+          <div 
+            class="thumb-item" 
+            [class.active]="activeImage() === img"
+            (mouseenter)="setActiveImage(img)"
+            (click)="setActiveImage(img)">
+            <img [src]="img" [alt]="p.title">
+          </div>
+        }
+      </div>
+
+      <div class="main-image-container">
+        <img [src]="activeImage()" [alt]="p.title" class="main-img">
+      </div>
     </div>
     
     <div class="info-col">
-      <h1>{{ p.title }}</h1>
-      <p class="brand">{{ p.brand }}</p>
+      <div class="breadcrumb">Home > {{ p.brand }} > {{ p.title }}</div>
       
-      <div class="price">
-        <h2>₹{{ price() }}</h2>
+      <h1>{{ p.title }}</h1>
+      
+      <div class="price-box">
+        <span class="final-price">₹{{ price() | number:'1.0-0' }}</span>
+        @if(p.discount) {
+          <span class="original-price">₹{{ originalPrice() }}</span>
+          <span class="discount-label">{{ p.discount }}% off</span>
+        }
       </div>
 
       <div class="variants">
-        <p>Select Color/Size:</p>
+        <p>Select Variant:</p>
         <div class="chips">
           @for (v of p.variants; track v.id) {
             <button 
               [class.active]="selectedVariant()?.id === v.id"
-              (click)="selectVariant(v)">
+              [class.disabled]="v.stock === 0"
+              (click)="v.stock > 0 && selectVariant(v)">
               {{ v.name }}
             </button>
           }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ProductDataService } from '../../core/services/product-data.service';
 import { CartService } from '../../core/services/cart.service';
-import { Product, Variant } from '../../core/services/models/ecommerce.models';
+import { Product, Variant } from '../../core/models/ecommerce.models'; // Ensure path is correct
 import { ToastService } from '../../core/services/toast.service';
 
 @Component({
@@ -18,11 +18,21 @@ export class ProductDetailPageComponent implements OnInit {
   private productService = inject(ProductDataService);
   private cartService = inject(CartService); 
   private toastService = inject(ToastService);
+
   product = signal<Product | null>(null);
   selectedVariant = signal<Variant | null>(null);
+  activeImage = signal<string>(''); // For Gallery
 
   // Derived state
-  price = computed(() => this.selectedVariant()?.price || 0);
+  price = computed(() => {
+    const p = this.product();
+    const v = this.selectedVariant();
+    if (!p || !v) return 0;
+    // Apply discount logic if exists
+    return p.discount ? v.price * (1 - p.discount / 100) : v.price;
+  });
+
+  originalPrice = computed(() => this.selectedVariant()?.price || 0);
   isStockAvailable = computed(() => (this.selectedVariant()?.stock || 0) > 0);
 
   ngOnInit() {
@@ -31,10 +41,15 @@ export class ProductDetailPageComponent implements OnInit {
       this.productService.getProductById(id).subscribe(p => {
         if (p) {
           this.product.set(p);
-          this.selectedVariant.set(p.variants[0]); // Auto-select first variant
+          this.selectedVariant.set(p.variants[0]);
+          this.activeImage.set(p.images[0]); // Default to first image
         }
       });
     }
+  }
+
+  setActiveImage(url: string) {
+    this.activeImage.set(url);
   }
 
   selectVariant(v: Variant) {
