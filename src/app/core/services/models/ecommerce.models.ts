@@ -6,6 +6,7 @@ export interface Variant {
 }
 
 export interface Product {
+  images: any;
   id: string;
   title: string;
   brand: string;

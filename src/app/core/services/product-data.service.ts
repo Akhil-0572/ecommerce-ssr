@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, delay } from 'rxjs';
-import { Product, FilterState, PaginatedResponse } from '../models/ecommerce.models';
+import { Product, FilterState, PaginatedResponse } from './models/ecommerce.models';
 
 const BRANDS = ['Nike', 'Adidas', 'Puma', 'Apple', 'Samsung', 'Sony', 'Dell', 'OnePlus'];
 const TITLES = ['Running Shoes', 'Smart Watch', 'Flagship Phone', 'Noise Cancelling Headphones', 'Laptop Pro', 'Gaming Monitor', 'Wireless Earbuds', 'Fitness Band'];

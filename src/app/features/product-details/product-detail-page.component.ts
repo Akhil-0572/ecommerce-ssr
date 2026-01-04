@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ProductDataService } from '../../core/services/product-data.service';
 import { CartService } from '../../core/services/cart.service';
-import { Product, Variant } from '../../core/models/ecommerce.models'; // Ensure path is correct
 import { ToastService } from '../../core/services/toast.service';
+import { Product, Variant } from '../../core/services/models/ecommerce.models';
 
 @Component({
   selector: 'app-product-detail-page',
