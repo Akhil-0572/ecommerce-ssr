@@ -1,0 +1,12 @@
+@if (toastService.toast(); as t) {
+  <div class="toast-card" [ngClass]="t.type">
+    <div class="icon-wrapper">
+      @if (t.type === 'success') { <span class="material-icons">check_circle</span> }
+      @else if (t.type === 'error') { <span class="material-icons">error</span> }
+    </div>
+    <div class="content">
+      <span class="message">{{ t.message }}</span>
+    </div>
+    <button class="close-btn" (click)="toastService.dismiss()">×</button>
+  </div>
+}

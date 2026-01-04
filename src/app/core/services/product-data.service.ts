@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, of, delay } from 'rxjs';
 import { Product, FilterState, PaginatedResponse } from './models/ecommerce.models';
 
-// Helper to generate dummy products
 const BRANDS = ['Nike', 'Adidas', 'Puma', 'Apple', 'Samsung', 'Sony', 'Dell', 'OnePlus'];
 const TITLES = ['Running Shoes', 'Smart Watch', 'Flagship Phone', 'Noise Cancelling Headphones', 'Laptop Pro', 'Gaming Monitor', 'Wireless Earbuds', 'Fitness Band'];
 
@@ -10,7 +9,7 @@ const GENERATED_PRODUCTS: Product[] = Array.from({ length: 24 }, (_, i) => {
   const brand = BRANDS[i % BRANDS.length];
   const title = TITLES[i % TITLES.length];
   const price = 2000 + Math.floor(Math.random() * 50000);
-  const discount = i % 3 === 0 ? 10 + Math.floor(Math.random() * 20) : 0; // 1 in 3 has discount
+  const discount = i % 3 === 0 ? 10 + Math.floor(Math.random() * 20) : 0; 
 
   return {
     id: (i + 1).toString(),

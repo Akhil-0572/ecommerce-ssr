@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductDataService } from '../../core/services/product-data.service';
 import { CartService } from '../../core/services/cart.service';
 import { Product, Variant } from '../../core/services/models/ecommerce.models';
+import { ToastService } from '../../core/services/toast.service';
 
 @Component({
   selector: 'app-product-detail-page',
@@ -15,8 +16,8 @@ import { Product, Variant } from '../../core/services/models/ecommerce.models';
 export class ProductDetailPageComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private productService = inject(ProductDataService);
-  private cartService = inject(CartService); // Inject Cart Service directly
-
+  private cartService = inject(CartService); 
+  private toastService = inject(ToastService);
   product = signal<Product | null>(null);
   selectedVariant = signal<Variant | null>(null);
 
@@ -46,7 +47,7 @@ export class ProductDetailPageComponent implements OnInit {
     
     if (p && v && this.isStockAvailable()) {
       this.cartService.addToCart(p, v);
-      alert('Added to Cart!');
+      this.toastService.show('Successfully added to cart!', 'success');
     }
   }
 }
